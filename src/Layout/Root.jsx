@@ -18,13 +18,13 @@ const Root = () => {
                 <Navbar></Navbar>
             </nav>
             <main className='flex gap-5 my-20'>
-                <aside className='w-1/4 rounded-lg'>
+                <aside className='w-1/4 rounded-lg sticky top-2 h-fit'>
                     <LeftSide></LeftSide>
                 </aside>
                 <section className='main w-2/4'>
                     <Outlet></Outlet>
                 </section>
-                <aside className='w-1/4'>
+                <aside className='w-1/4 sticky top-2 h-fit'>
                     <RightSide></RightSide>
                 </aside>
             </main>
