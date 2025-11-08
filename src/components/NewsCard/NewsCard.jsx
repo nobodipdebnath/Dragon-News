@@ -2,9 +2,10 @@ import React from "react";
 import { FaRegBookmark, FaEye} from "react-icons/fa";
 import { CiShare2 } from "react-icons/ci";
 import { AiFillStar } from "react-icons/ai";
+import { Link } from "react-router";
 
 const NewsCard = ({ news }) => {
-  const { author, title, thumbnail_url, details, rating, total_view } = news;
+  const { author, title, thumbnail_url, details, rating, total_view, id} = news;
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -51,9 +52,9 @@ const NewsCard = ({ news }) => {
         {/* Details */}
         <div className="text-accent text-base leading-relaxed">
           {details.slice(0, 200)}...
-          <button className="text-orange-500 text-lg font-semibold ml-1 cursor-pointer hover:underline">
+          <Link to = {`/news-details/${id}`} className="text-orange-500 text-lg font-semibold ml-1 cursor-pointer hover:underline">
             Read More...
-          </button>
+          </Link>
         </div>
 
         <div className="h-0.5 my-5 w-full bg-gray-300"></div>
