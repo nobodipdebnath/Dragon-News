@@ -13,7 +13,7 @@ const Navbar = () => {
         console.log("Sign Out Success Full");
       })
       .catch((error) => {
-        // console.log(error);
+        console.log(error);
       });
   };
 
