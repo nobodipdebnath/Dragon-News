@@ -1,28 +1,48 @@
-import { use} from "react";
-import { Link } from "react-router";
+import { use, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
-  const { createUser, setUser } = use(AuthContext);
+  const { createUser, setUser, upDateProfile } = use(AuthContext);
+  const [nameError, setNameError] = useState("");
+  const navigate = useNavigate();
 
   const handelRegister = (e) => {
     e.preventDefault();
-    // const name = e.target.name.value;
-    // const imageUrl = e.target.photo_url.value;
+    const name = e.target.name.value;
+    if (name === "") {
+      setNameError("Name can't blank Please Provide Your Name");
+      return;
+    } else {
+      setNameError("");
+    }
+
+    const imageUrl = e.target.photo_url.value;
+    // console.log(imageUrl);
+
     const email = e.target.email.value;
     const password = e.target.password.value;
-
 
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-        setUser(user);
-        console.log(user);
-        toast.success("Register Successful! 🎉");
+        upDateProfile({
+          displayName: name,
+          photoURL: imageUrl,
+        })
+          .then(() => {
+            setUser({ ...user, displayName: name, photoURL: imageUrl });
+            toast.success("Register Successful! 🎉");
+            navigate('/');
+          })
+          .catch((error) => {
+            // console.log(error.message);
+            setUser(user);
+          });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         toast.error("Something went wrong! ❌");
       });
   };
@@ -30,7 +50,7 @@ const Register = () => {
   return (
     <div>
       <Toaster position="top-right" reverseOrder={false} />
-      <div className="card bg-base-100 w-1/2 mx-auto py-10 px-24">
+      <div className="card bg-base-100 lg:w-1/2 mx-auto py-10 px-24">
         <h1 className="text-center font-bold text-2xl text-primary">
           Register Your Account
         </h1>
@@ -47,6 +67,10 @@ const Register = () => {
               className="w-full py-4 rounded-md px-5 outline-none bg-base-200"
               placeholder="Enter Your Name"
             />
+
+            {nameError && (
+              <p className="text-center text-red-600">{nameError}</p>
+            )}
 
             <label className="label text-lg font-semibold text-primary mt-5">
               Photo URL

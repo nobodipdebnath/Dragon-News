@@ -6,49 +6,54 @@ import LoginPage from "../Page/LoginPage";
 import Register from "../Page/Register";
 import AuthLayout from "../Layout/AuthLayout";
 import NewsDetails from "../Page/NewsDetails";
-
+import PrivetRoute from "./PrivetRoute";
+import Loading from "../components/Loading/Loading";
 
 const router = createBrowserRouter([
-    {
-        path: '/',
-        Component: Root,
-        children: [
-            {
-                index: true,
-                Component: Home
-            },
-            {
-                path: 'category/:id',
-                Component: CategoryNews, 
-                loader: ()=> fetch('/news.json')
-            }
-        ]
-        
-    },
-    {
-        path: '/auth',
-        Component: AuthLayout,
-        children: [
-            {
-                path: '/auth/login',
-                Component: LoginPage,
-            },
-            {
-                path: '/auth/register',
-                Component: Register
-            }
-        ]
-    },
-    {
-        path: '/news-details/:id',
-        Component: NewsDetails,
-        loader: () => fetch('/news.json')
-    },
-    {
-        path: '*',
-        element: <h2>Error Page</h2>
-
-    }
-])
+  {
+    path: "/",
+    Component: Root,
+    children: [
+      {
+        index: true,
+        Component: Home,
+      },
+      {
+        path: "category/:id",
+        Component: CategoryNews,
+        loader: () => fetch("/news.json"),
+        hydrateFallbackElement: <Loading></Loading>,
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    Component: AuthLayout,
+    children: [
+      {
+        path: "/auth/login",
+        Component: LoginPage,
+      },
+      {
+        path: "/auth/register",
+        Component: Register,
+      },
+    ],
+  },
+  {
+    path: "/news-details/:id",
+    element: (
+      <PrivetRoute>
+        <NewsDetails></NewsDetails>
+      </PrivetRoute>
+    ),
+    loader: () => fetch("/news.json"),
+    hydrateFallbackElement: <Loading></Loading>,
+  },
+  {
+    path: "*",
+    element: <h2>Error Page</h2>,
+  },
+]);
 
 export default router;
