@@ -26,6 +26,11 @@ const LoginPage = () => {
       });
   };
 
+  // const emailRef = useRef(null);
+  // const email = emailRef.current.value;
+  // console.log(email);
+  // forgotPassword(email);
+
   return (
     <div className="h-screen">
       <div className="card bg-base-100 lg:w-1/2 mx-auto py-10 px-24">
