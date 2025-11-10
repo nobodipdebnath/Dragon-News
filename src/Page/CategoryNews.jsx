@@ -20,18 +20,21 @@ const CategoryNews = () => {
       setCategoryNews(filterNews);
     } else {
       const filterNews = data.filter((news) => news.category_id == id);
-    //   console.log(filterNews);
+      //   console.log(filterNews);
 
       setCategoryNews(filterNews);
     }
   }, [data, id]);
   return (
     <div>
-      <h2 className="font-bold text-xl ">Total <span className="text-secondary">{categoryNews.length}</span> News Found</h2>
+      <h2 className="font-bold text-xl ">
+        Total <span className="text-secondary">{categoryNews.length}</span> News
+        Found
+      </h2>
       <div className="grid grid-cols-1 mt-4 gap-6">
-        {
-            categoryNews.map((news, idx) => <NewsCard key={idx} news={news}></NewsCard>)
-        }
+        {categoryNews.map((news, idx) => (
+          <NewsCard key={idx} news={news}></NewsCard>
+        ))}
       </div>
     </div>
   );
