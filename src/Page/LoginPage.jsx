@@ -18,7 +18,7 @@ const LoginPage = () => {
     logInUser(email, password)
       .then((result) => {
         const user = result.user;
-        toast.success(`WelCome ${user.displayName}`)
+        toast.success(`WelCome ${user.displayName}`);
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
@@ -55,9 +55,16 @@ const LoginPage = () => {
               className="w-full py-4 rounded-md px-5 outline-none bg-base-200"
               placeholder="Enter Your Password"
             />
-            {
-              error && <p className="text-red-600 text-center mt-3">Email or Password Wrong Please Try Again !!</p>
-            }
+            <div
+              className="text-green-600 underline mt-3 cursor-pointer"
+            >
+              Forgot Password
+            </div>
+            {error && (
+              <p className="text-red-600 text-center mt-3">
+                Email or Password Wrong Please Try Again !!
+              </p>
+            )}
             <button className="rounded-md text-lg  cursor-pointer py-3 bg-primary text-white font-semibold mt-8">
               Login
             </button>
