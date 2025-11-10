@@ -8,6 +8,7 @@ import AuthLayout from "../Layout/AuthLayout";
 import NewsDetails from "../Page/NewsDetails";
 import PrivetRoute from "./PrivetRoute";
 import Loading from "../components/Loading/Loading";
+import Error from "../components/Error/Error";
 
 const router = createBrowserRouter([
   {
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <h2>Error Page</h2>,
+    Component: Error
   },
 ]);
 

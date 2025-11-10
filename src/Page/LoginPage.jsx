@@ -1,10 +1,10 @@
-import React, { use, useState } from "react";
+import React, { use, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
 import toast from "react-hot-toast";
 
 const LoginPage = () => {
-  const { logInUser } = use(AuthContext);
+  const { logInUser, forgotPassword } = use(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const [error, setError] = useState("");
@@ -26,10 +26,19 @@ const LoginPage = () => {
       });
   };
 
-  // const emailRef = useRef(null);
-  // const email = emailRef.current.value;
-  // console.log(email);
-  // forgotPassword(email);
+  const emailRef = useRef(null);
+  const handelForgot = () => {
+    const email = emailRef.current.value;
+    console.log(email);
+    forgotPassword(email)
+    .then(result => {
+      console.log(result);
+      toast.success('password reset mail send..')
+    })
+    .catch(error => {
+      setError(error.message);
+    })
+  };
 
   return (
     <div className="h-screen">
@@ -46,6 +55,7 @@ const LoginPage = () => {
             <input
               type="email"
               name="email"
+              ref={emailRef}
               required
               className="w-full py-4 rounded-md px-5 outline-none bg-base-200"
               placeholder="Enter Your Email Address"
@@ -60,9 +70,7 @@ const LoginPage = () => {
               className="w-full py-4 rounded-md px-5 outline-none bg-base-200"
               placeholder="Enter Your Password"
             />
-            <div
-              className="text-green-600 underline mt-3 cursor-pointer"
-            >
+            <div onClick={handelForgot} className="text-green-600 underline mt-3 cursor-pointer">
               Forgot Password
             </div>
             {error && (

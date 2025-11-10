@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router";
 import profile from "../../assets/user.png";
 import { use } from "react";
 import { AuthContext } from "../../Context/AuthContext";
+import toast from "react-hot-toast";
 
 
 const Navbar = () => {
@@ -10,7 +11,7 @@ const Navbar = () => {
   const handelSignOut = () => {
     signOutUser()
       .then(() => {
-        console.log("Sign Out Success Full");
+        toast.success("Sign Out Success Full");
       })
       .catch((error) => {
         console.log(error);
@@ -28,6 +29,9 @@ const Navbar = () => {
       <li>
         <NavLink to="/career">Career</NavLink>
       </li>
+      <li>
+        <NavLink to="/bookMark">BookMark</NavLink>
+      </li>
     </>
   );
   return (
@@ -42,7 +46,7 @@ const Navbar = () => {
         }
         
         {
-          user ? <button onClick={handelSignOut} className=" px-10 btn btn-primary">Log Out</button> : <Link to='/auth/login'><button className=" px-10 btn btn-primary">Login</button></Link>
+          user ? <button onClick={handelSignOut} className=" px-10 py-3 bg-secondary rounded-sm text-white font-semibold cursor-pointer">Log Out</button> : <Link to='/auth/login'><button className=" px-10 py-3 bg-secondary rounded-sm text-white font-semibold cursor-pointer">Login</button></Link>
         }
       </div>
     </div>

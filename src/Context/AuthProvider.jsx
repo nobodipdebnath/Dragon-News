@@ -19,7 +19,7 @@ export const AuthProvider = ({children}) => {
     }
 
     const forgotPassword = (email) =>{
-        sendPasswordResetEmail(auth, email);
+        return sendPasswordResetEmail(auth, email);
     }
 
     const signOutUser = () => {
