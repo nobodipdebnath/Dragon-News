@@ -1,6 +1,7 @@
 import React, { use, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
   const { logInUser } = use(AuthContext);
@@ -17,7 +18,7 @@ const LoginPage = () => {
     logInUser(email, password)
       .then((result) => {
         const user = result.user;
-        alert(`Welcome ${user.displayName}`);
+        toast.success(`WelCome ${user.displayName}`)
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
